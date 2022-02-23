@@ -1,0 +1,48 @@
+<Window x:Class="DashboardControl.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DashboardControl"
+        xmlns:util="clr-namespace:DashboardControl.Utilities"
+        mc:Ignorable="d"
+        Title="Dashboard Control by Metaln00b" Height="450" Width="800" Icon="/298756_dashboard_icon.png">
+    <Window.Resources>
+        <util:InvertBooleanConverter x:Key="InvertBooleanConverter"></util:InvertBooleanConverter>
+    </Window.Resources>
+    <Grid>
+        <ComboBox HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged" ItemsSource="{Binding SerialPortEntries}"/>
+        <Button Content="Connect" HorizontalAlignment="Left" Margin="225,12,0,0" VerticalAlignment="Top" Click="Connect_Click" IsEnabled="{Binding Path=IsConnected, Converter={StaticResource InvertBooleanConverter}}" />
+        <Button Content="Disconnect" HorizontalAlignment="Left" Margin="278,12,0,0" VerticalAlignment="Top" Click="Disconnect_Click" IsEnabled="{Binding Path=IsConnected}"/>
+
+        <Label Content="Message" HorizontalAlignment="Left" Margin="38,49,0,0" VerticalAlignment="Top"/>
+        <TextBox Margin="100,53,100,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding SerialMessage}"/>
+
+        <CheckBox Content="Indicator Left" HorizontalAlignment="Left" Margin="100,92,0,0" VerticalAlignment="Top" IsChecked="{Binding TurnIndicatorLeftChecked}" Click="CheckBoxTurnIndicatorLeft_Clicked"/>
+        <CheckBox Content="Parking Brake" HorizontalAlignment="Left" Margin="195,92,0,0" VerticalAlignment="Top" IsChecked="{Binding Telemetrie.ParkingBrake}"/>
+        <CheckBox Content="Indicator Right" HorizontalAlignment="Left" Margin="292,92,0,0" VerticalAlignment="Top" IsChecked="{Binding TurnIndicatorRightChecked}" Click="CheckBoxTurnIndicatorRight_Clicked"/>
+
+        <Label Content="RPM" HorizontalAlignment="Left" Margin="60,130,0,0" VerticalAlignment="Top"/>
+        <Slider Value="{Binding Telemetrie.RoundsPerMinute}" Margin="100,131,100,0" Minimum="0" Maximum="20000" TickFrequency="100" TickPlacement="BottomRight" IsSnapToTickEnabled="True" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="705,135,0,0" VerticalAlignment="Top" Width="85" BorderThickness="0" IsReadOnly="True" Text="{Binding Telemetrie.RoundsPerMinute, StringFormat={}{0:0} RPM}"/>
+
+        <Label Content="km/h" HorizontalAlignment="Left" Margin="57,159,0,0" VerticalAlignment="Top"/>
+        <Slider Value="{Binding Telemetrie.SpeedKmh}" Margin="100,160,100,0" Minimum="0" Maximum="400" TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="705,164,0,0" VerticalAlignment="Top" Width="85" BorderThickness="0" IsReadOnly="True" Text="{Binding Telemetrie.SpeedKmh, StringFormat={}{0:0} km/h}"/>
+
+        <Label Content="Coolant Temp." HorizontalAlignment="Left" Margin="9,188,0,0" VerticalAlignment="Top"/>
+        <Slider Value="{Binding Telemetrie.WaterTemperatureDegC}" Margin="100,189,100,0" Minimum="0" Maximum="130" TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="705,193,0,0" VerticalAlignment="Top" Width="85" BorderThickness="0" IsReadOnly="True" Text="{Binding Telemetrie.WaterTemperatureDegC, StringFormat={}{0:0} °C}"/>
+
+        <Label Content="Fuel" HorizontalAlignment="Left" Margin="63,217,0,0" VerticalAlignment="Top"/>
+        <Slider Value="{Binding Telemetrie.FuelPercent}" Margin="100,218,100,0" Minimum="0" Maximum="100" TickFrequency="10" TickPlacement="BottomRight" IsSnapToTickEnabled="True" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="705,222,0,0" VerticalAlignment="Top" Width="85" BorderThickness="0" IsReadOnly="True" Text="{Binding Telemetrie.FuelPercent, StringFormat={}{0:0} %}"/>
+
+        <Label Content="Oil Temp." HorizontalAlignment="Left" Margin="35,246,0,0" VerticalAlignment="Top"/>
+        <Slider Value="{Binding Telemetrie.OilTemperatureDegC}" Margin="100,247,100,0" Minimum="0" Maximum="200" TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="705,251,0,0" VerticalAlignment="Top" Width="85" BorderThickness="0" IsReadOnly="True" Text="{Binding Telemetrie.OilTemperatureDegC, StringFormat={}{0:0} °C}"/>
+
+        <RadioButton Content="Left" HorizontalAlignment="Left" Margin="100,276,0,0" VerticalAlignment="Top" IsChecked="{Binding Telemetrie.TurnIndicatorLeft}" IsEnabled="false"/>
+        <RadioButton Content="Right" HorizontalAlignment="Left" Margin="160,276,0,0" VerticalAlignment="Top" IsChecked="{Binding Telemetrie.TurnIndicatorRight}" IsEnabled="false"/>
+    </Grid>
+</Window>
